@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poligonal cerrada | TopoCalc</title>
+    <link rel="stylesheet" href="../CSS/POLC.css">
+    <link rel="icon" type="image/x-icon" href="../IMG/ICONO.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../JS/SUPABASE.js"></script>
+
+</head>
+<body>
+
+<header class="encabezado">
+    <div class="marca">
+        <img src="../IMG/ICONO.png" alt="Logo TopoCalc" class="logo"
+             onerror="this.onerror=null;this.src='../IMG/ICONO.ico';">
+        <div>
+            <h1>TopoCalc</h1>
+            <p>Cálculos topográficos</p>
+        </div>
+    </div>
+
+    <div class="acciones-header">
+        <a href="MENU.html" class="btn-inicio">Inicio</a>
+        <button type="button" class="btn-salir" id="btnCerrarSesion">
+            Cerrar sesión
+        </button>
+    </div>
+</header>
+
+<main class="contenedor">
+
+    <section class="cabecera-pagina">
+        <div>
+            <h2>Poligonal cerrada</h2>
+            <p>Gestión de proyectos, observaciones de campo y cálculo de coordenadas.</p>
+        </div>
+
+        <button type="button" id="btnNuevoProyecto" class="btn-principal">
+            + Nuevo proyecto
+        </button>
+    </section>
+
+    <!-- PANEL DE PROYECTOS -->
+    <section id="panelProyectos" class="panel">
+        <div class="titulo-panel">
+            <h3>Mis proyectos</h3>
+            <span id="contadorProyectos" class="contador">0 proyectos</span>
+        </div>
+
+        <div id="listaProyectos" class="lista-proyectos"></div>
+
+        <div id="mensajeVacio" class="mensaje-vacio">
+            <div class="icono-vacio">⌖</div>
+            <h3>Todavía no hay proyectos</h3>
+            <p>Crea un proyecto para comenzar a calcular tu poligonal cerrada.</p>
+
+            <button type="button" id="btnCrearDesdeVacio" class="btn-principal">
+                Crear primer proyecto
+            </button>
+        </div>
+    </section>
+
+    <!-- PANEL DEL FORMULARIO -->
+    <section id="panelFormulario" class="panel oculto">
+        <div class="titulo-panel">
+            <div>
+                <h3 id="tituloFormulario">Nuevo proyecto</h3>
+                <p class="texto-secundario">Completa los datos del levantamiento.</p>
+            </div>
+
+            <button type="button" id="btnVolverProyectos" class="btn-secundario">
+                Volver a proyectos
+            </button>
+        </div>
+
+        <form id="formProyecto">
+
+            <div class="subtitulo-seccion">
+                <h4>1. Información del proyecto</h4>
+            </div>
+
+            <div class="rejilla-formulario">
+
+                <div class="campo campo-completo">
+                    <label for="nombreProyecto">Nombre del proyecto</label>
+                    <input type="text" id="nombreProyecto"
+                           placeholder="Ej. Levantamiento lote norte" required>
+                </div>
+
+                <div class="campo">
+                    <label for="fechaProyecto">Fecha</label>
+                    <input type="date" id="fechaProyecto" required>
+                </div>
+
+                <div class="campo">
+                    <label for="instrumento">Instrumento</label>
+                    <input type="text" id="instrumento"
+                           placeholder="Ej. Topcon GTS-223">
+                </div>
+
+                <div class="campo">
+                    <label for="estacionReferencia">Estación de armada</label>
+                    <input type="text" id="estacionReferencia"
+                           value="TT-17" required>
+                </div>
+
+                <div class="campo">
+                    <label for="puntoAmarre">Punto de amarre</label>
+                    <input type="text" id="puntoAmarre"
+                           value="AMARRE" required>
+                </div>
+
+                <div class="campo">
+                    <label for="norteReferencia">Norte de la armada (m)</label>
+                    <input type="number" id="norteReferencia"
+                           step="any" placeholder="Norte conocido" required>
+                </div>
+
+                <div class="campo">
+                    <label for="esteReferencia">Este de la armada (m)</label>
+                    <input type="number" id="esteReferencia"
+                           step="any" placeholder="Este conocido" required>
+                </div>
+
+                <div class="campo">
+                    <label for="norteAmarre">Norte del amarre (m)</label>
+                    <input type="number" id="norteAmarre"
+                           step="any" placeholder="Norte del amarre" required>
+                </div>
+
+                <div class="campo">
+                    <label for="esteAmarre">Este del amarre (m)</label>
+                    <input type="number" id="esteAmarre"
+                           step="any" placeholder="Este del amarre" required>
+                </div>
+
+                <div class="campo">
+                    <label for="cantidadVertices">Cantidad de vértices</label>
+                    <input type="number" id="cantidadVertices"
+                           min="3" max="100" value="5" required>
+                </div>
+            </div>
+
+            <div class="nota">
+                <strong>Orientación:</strong> el azimut desde la armada hasta el
+                amarre se calcula automáticamente a partir de sus coordenadas.
+                El ángulo observado hacia P1 se registra por separado y no
+                participa en el cierre angular.
+            </div>
+
+            <div class="subtitulo-seccion">
+                <h4>2. Observaciones de campo</h4>
+                <p>
+                    Ingresa los ángulos observados en grados, minutos y segundos.
+                    La fila inicial corresponde a la orientación hacia P1.
+                </p>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table id="tablaObservaciones">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Estación</th>
+                            <th>Punto observado</th>
+                            <th>Grados</th>
+                            <th>Minutos</th>
+                            <th>Segundos</th>
+                            <th>Distancia (m)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpoObservaciones"></tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                La orientación inicial se utiliza para calcular el azimut y las
+                coordenadas de P1. Los ángulos de los vértices se utilizan para
+                el cierre angular. La última fila de vértice no solicita distancia.
+            </div>
+
+            <div class="subtitulo-seccion">
+                <h4>3. Configuración del cálculo</h4>
+            </div>
+
+            <div class="rejilla-formulario">
+                <div class="campo">
+                    <label for="tipoAngulo">Tipo de ángulos observados</label>
+                    <select id="tipoAngulo" required>
+                        <option value="interior">Ángulos interiores</option>
+                        <option value="exterior">Ángulos exteriores</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="mensaje" class="mensaje oculto" role="alert"></div>
+
+            <div class="acciones-formulario">
+                <button type="submit" id="btnGuardarProyecto" class="btn-principal">
+                    Guardar y calcular
+                </button>
+
+                <button type="button" id="btnCancelarFormulario" class="btn-secundario">
+                    Cancelar
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <!-- PANEL DE RESULTADOS -->
+    <section id="panelResultados" class="panel oculto">
+
+        <div class="titulo-panel">
+            <div>
+                <h3 id="tituloResultados">Resultados de la poligonal</h3>
+                <p id="subtituloResultados" class="texto-secundario"></p>
+            </div>
+
+            <div class="acciones-resultados">
+                <button type="button" id="btnEditarProyecto" class="btn-secundario">
+                    Editar proyecto
+                </button>
+
+                <button type="button" id="btnExportarCSV" class="btn-principal">
+                    Exportar CSV
+                </button>
+            </div>
+        </div>
+
+        <div id="resumenCalculo" class="resumen-calculo"></div>
+
+        <div class="subtitulo-seccion">
+            <h4>Tabla de cálculo</h4>
+        </div>
+
+        <div class="tabla-contenedor">
+            <table id="tablaResultados">
+                <thead>
+                    <tr>
+                        <th>Estación</th>
+                        <th>Pto. observado</th>
+                        <th>Ángulo observado</th>
+                        <th>Ángulo corregido</th>
+                        <th>Azimut</th>
+                        <th>Distancia (m)</th>
+                        <th>Proy. Norte</th>
+                        <th>Proy. Este</th>
+                        <th>Proy. N corregida</th>
+                        <th>Proy. E corregida</th>
+                        <th>Norte</th>
+                        <th>Este</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoResultados"></tbody>
+            </table>
+        </div>
+
+        <div class="acciones-formulario">
+            <button type="button" id="btnVolverResultados" class="btn-secundario">
+                Volver a proyectos
+            </button>
+        </div>
+    </section>
+</main>
+
+<footer class="pie-pagina">
+    <p>TopoCalc · Herramientas de cálculo topográfico</p>
+</footer>
+
+<script src="../JS/POLC.js"></script>
+</body>
+</html>

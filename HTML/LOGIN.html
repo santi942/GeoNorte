@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../CSS/LOGIN.css">
+    <link rel="icon" type="image/x-icon" href="../IMG/ICONO.ico">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../JS/SUPABASE.js"></script>
+<script src="../JS/LOGIN.js"></script>
+
+    <title>CAMPUS | Iniciar sesión</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+
+            <h1 id="tituloFormulario">Iniciar Sesión</h1>
+
+            <form id="formularioLogin">
+
+                <!-- Nombre: solo aparece al registrarse -->
+                <div class="input-box" id="contenedorNombre"
+                     style="display: none;">
+                    <input
+                        type="text"
+                        id="nombre"
+                        placeholder="Nombre completo"
+                        autocomplete="name"
+                    >
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="input-box">
+                    <input
+                        type="email"
+                        id="correo"
+                        placeholder="Correo electrónico"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
+
+                <!-- Contraseña -->
+                <div class="input-box">
+                    <input
+                        type="password"
+                        id="contrasena"
+                        placeholder="Contraseña"
+                        autocomplete="current-password"
+                        minlength="6"
+                        required
+                    >
+                </div>
+
+                <!-- Opciones -->
+                <div class="remember-password" id="opcionesLogin">
+                    <label>
+                        <input type="checkbox" id="recordarme">
+                        Recordarme
+                    </label>
+
+                    <a href="#" id="enlaceRecuperar">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+                </div>
+
+                <!-- Botón principal -->
+                <button class="btn" id="botonEnviar" type="submit">
+                    Ingresar
+                </button>
+
+                <!-- Cambiar entre iniciar sesión y registrarse -->
+                <p>
+                    <span id="textoPregunta">¿No tienes cuenta?</span>
+                    <a href="#" id="enlaceRegistro">Regístrate aquí</a>
+                </p>
+
+            </form>
+
+            <!-- Mensajes de éxito y error -->
+            <p id="mensajeLogin" role="status" aria-live="polite"></p>
+
+        </div>
+    </div>
+
+    <!-- Librería oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Configuración de Supabase -->
+    <script src="../JS/SUPABASE.js"></script>
+
+    <!-- Funciones de inicio de sesión -->
+    <script src="../JS/LOGIN.js"></script>
+</body>
+</html>

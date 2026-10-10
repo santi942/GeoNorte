@@ -1,0 +1,240 @@
+
+/* Configuración general */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Título arriba */
+.h1 {
+    text-align: center;
+    margin: 30px 0;
+    width: 100%;
+}
+
+/* Contenedor de las tarjetas */
+
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Tarjetas */
+.card {
+    width: 250px;
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    /* Animación suave */
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+
+    cursor: pointer;
+}
+
+/* Elevación al pasar el mouse */
+.card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.22);
+}
+
+/* Área de la imagen */
+.card figure {
+    margin: 0;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+}
+
+/* Imágenes */
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+
+    /* Zoom suave */
+    transition: transform 0.4s ease;
+}
+
+/* Zoom al pasar el mouse */
+.card:hover img {
+    transform: scale(1.06);
+}
+
+/* Contenido */
+.contenido {
+    min-height: 90px;
+    padding: 15px;
+    text-align: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Títulos */
+.contenido h3 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+/* Adaptación para celulares */
+@media (max-width: 600px) {
+    .contenedor {
+        gap: 20px;
+    }
+
+    .card {
+        width: min(100%, 320px);
+    }
+}
+
+/* Respetar preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .card,
+    .card img {
+        transition: none;
+    }
+}
+
+
+
+/* ENCABEZADO */
+.encabezado {
+    width: 100%;
+    min-height: 90px;
+    background-color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 35px;
+    box-sizing: border-box;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* LOGO Y NOMBRE */
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+}
+
+.marca img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.marca span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #17365d;
+    letter-spacing: 1px;
+}
+
+/* TÍTULO CENTRADO */
+.encabezado .h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: auto;
+    margin: 0;
+    font-size: 28px;
+    color: #17365d;
+}
+
+/* BOTÓN CERRAR SESIÓN */
+.cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 11px 16px;
+    background-color: #17365d;
+    color: #ffffff;
+
+    text-decoration: none;
+    text-transform: none;
+    font-size: 14px;
+    font-weight: bold;
+
+    border-radius: 8px;
+    transition: background-color 0.3s ease,
+                transform 0.3s ease;
+    z-index: 1;
+}
+
+/* EFECTO DEL BOTÓN */
+.cerrar-sesion:hover {
+    background-color: #24558b;
+    transform: translateY(-2px);
+}
+
+/* ICONO */
+.icono-salida {
+    font-size: 21px;
+    line-height: 1;
+}
+
+/* CELULARES */
+@media (max-width: 600px) {
+    .encabezado {
+        padding: 12px;
+        min-height: 75px;
+    }
+
+    .marca {
+        gap: 6px;
+    }
+
+    .marca img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .marca span {
+        display: none;
+    }
+
+    .encabezado .h1 {
+        font-size: 19px;
+    }
+
+    .cerrar-sesion {
+        gap: 4px;
+        padding: 9px 8px;
+        font-size: 11px;
+    }
+}
+
+a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
