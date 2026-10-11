@@ -1,29 +1,49 @@
+/* =========================================
+   GEONORTE | POLIGONAL CERRADA
+   Estilo unificado con GeoNorte
+   ========================================= */
+
+/* CONFIGURACIÓN GENERAL */
 
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 :root {
     --azul: #17365d;
     --azul-hover: #24558b;
-    --fondo: #f4f6f9;
+    --azul-profundo: #10263f;
+    --dorado: #d9aa50;
+    --dorado-claro: #f0cc83;
+    --fondo: #f3f5f8;
     --borde: #e1e5eb;
-    --texto: #252525;
-    --gris: #777;
-    --blanco: #fff;
+    --texto: #253247;
+    --gris: #718096;
+    --blanco: #ffffff;
     --rojo: #b8323c;
+    --verde: #21633c;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
     color: var(--texto);
     background: var(--fondo);
 }
 
 button,
 input,
-select {
+select,
+textarea {
     font: inherit;
 }
 
@@ -36,32 +56,55 @@ button {
     cursor: pointer;
 }
 
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================
+   ENCABEZADO
+   ========================================= */
+
 .encabezado {
+    width: 100%;
+    min-height: 86px;
+    padding: 14px 35px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 15px 5%;
+
     background: var(--blanco);
-    border-bottom: 1px solid var(--borde);
+    border-bottom: 3px solid var(--dorado);
+    box-shadow: 0 3px 14px rgba(16, 38, 63, 0.09);
+
+    position: relative;
+    z-index: 2;
 }
+
+/* MARCA */
 
 .marca {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
+    text-decoration: none;
 }
 
 .logo {
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .marca h1 {
     margin: 0;
     color: var(--azul);
-    font-size: 23px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .marca p {
@@ -69,6 +112,8 @@ button {
     color: var(--gris);
     font-size: 12px;
 }
+
+/* ACCIONES DEL ENCABEZADO */
 
 .acciones-header,
 .acciones-resultados {
@@ -78,6 +123,10 @@ button {
     gap: 10px;
 }
 
+/* =========================================
+   BOTONES
+   ========================================= */
+
 .btn-inicio,
 .btn-principal,
 .btn-secundario,
@@ -85,57 +134,90 @@ button {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    min-height: 40px;
+    gap: 8px;
+
+    min-height: 42px;
     padding: 10px 16px;
+
     border: 1px solid transparent;
-    border-radius: 7px;
+    border-radius: 8px;
+
     text-decoration: none;
     font-size: 13px;
-    font-weight: bold;
-    transition: background .2s, transform .2s;
+    font-weight: 600;
+    line-height: 1.4;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 .btn-inicio,
 .btn-principal {
-    color: white;
+    color: var(--blanco);
     background: var(--azul);
+    border-color: var(--azul);
 }
 
 .btn-inicio:hover,
 .btn-principal:hover {
+    color: var(--blanco);
     background: var(--azul-hover);
+    border-color: var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 13px rgba(23, 54, 93, 0.15);
 }
 
 .btn-secundario {
     color: var(--azul);
-    background: white;
+    background: var(--blanco);
     border-color: #cbd5e1;
 }
 
 .btn-secundario:hover {
     background: #f0f4f9;
+    border-color: var(--azul-hover);
 }
 
 .btn-salir {
     color: var(--rojo);
-    background: white;
+    background: var(--blanco);
     border-color: #e5c5c8;
 }
 
 .btn-salir:hover {
     background: #fff4f4;
+    border-color: var(--rojo);
 }
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
 
 .contenedor {
     width: min(1450px, 92%);
     margin: 35px auto 50px;
+    flex: 1;
 }
+
+/* CABECERA DE PÁGINA */
 
 .cabecera-pagina {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+
     margin-bottom: 25px;
 }
 
@@ -143,29 +225,38 @@ button {
     margin: 0 0 8px;
     color: var(--azul);
     font-size: 30px;
+    font-weight: 700;
 }
 
 .cabecera-pagina p {
     margin: 0;
     color: var(--gris);
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
+
+/* =========================================
+   PANELES
+   ========================================= */
 
 .panel {
     padding: 25px;
     margin-bottom: 25px;
-    background: white;
+
+    background: var(--blanco);
     border: 1px solid var(--borde);
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(20, 40, 70, .04);
+
+    box-shadow: 0 5px 16px rgba(16, 38, 63, 0.055);
 }
 
 .titulo-panel {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     gap: 18px;
+
     margin-bottom: 20px;
 }
 
@@ -173,23 +264,35 @@ button {
     margin: 0;
     color: var(--azul);
     font-size: 21px;
+    font-weight: 700;
 }
 
 .texto-secundario {
     margin: 7px 0 0;
     color: var(--gris);
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
+/* CONTADOR */
+
 .contador {
-    padding: 7px 12px;
+    padding: 7px 13px;
+
+    border: 1px solid #dce5f0;
     border-radius: 20px;
+
     background: #edf2f8;
     color: var(--azul);
+
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
+    white-space: nowrap;
 }
+
+/* =========================================
+   PROYECTOS GUARDADOS
+   ========================================= */
 
 .lista-proyectos {
     display: grid;
@@ -198,22 +301,39 @@ button {
 }
 
 .tarjeta-proyecto {
-    padding: 18px;
+    min-width: 0;
+    padding: 20px;
+
     border: 1px solid var(--borde);
-    border-radius: 9px;
-    background: #fff;
+    border-top: 3px solid var(--azul);
+    border-radius: 10px;
+
+    background: var(--blanco);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.tarjeta-proyecto:hover {
+    transform: translateY(-3px);
+    border-top-color: var(--dorado);
+    box-shadow: 0 8px 20px rgba(16, 38, 63, 0.09);
 }
 
 .tarjeta-proyecto h4 {
     margin: 0 0 10px;
     color: var(--azul);
+    font-size: 16px;
     overflow-wrap: anywhere;
 }
 
 .tarjeta-proyecto p {
     color: var(--gris);
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
 }
 
 .acciones-tarjeta {
@@ -224,66 +344,106 @@ button {
 }
 
 .acciones-tarjeta button {
-    padding: 8px 10px;
-    border-radius: 6px;
+    padding: 8px 11px;
+
     border: 1px solid var(--borde);
-    background: white;
+    border-radius: 7px;
+
+    background: var(--blanco);
     color: var(--azul);
+
     font-size: 12px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.acciones-tarjeta button:hover {
+    background: #edf3fa;
+    border-color: var(--azul-hover);
 }
 
 .acciones-tarjeta .eliminar {
     color: var(--rojo);
+    border-color: #e5c5c8;
 }
+
+.acciones-tarjeta .eliminar:hover {
+    background: #fff4f4;
+    border-color: var(--rojo);
+}
+
+/* =========================================
+   ESTADO VACÍO
+   ========================================= */
 
 .mensaje-vacio {
     margin-top: 18px;
-    padding: 30px 15px;
+    padding: 35px 20px;
+
     text-align: center;
+
     border: 1px dashed #cbd5e1;
     border-radius: 10px;
+
     background: #fbfcfe;
 }
 
 .icono-vacio {
-    font-size: 35px;
-    color: var(--azul);
+    margin-bottom: 8px;
+    color: var(--dorado);
+    font-size: 38px;
 }
 
 .mensaje-vacio h3 {
     margin: 8px 0;
     color: var(--azul);
+    font-size: 19px;
 }
 
 .mensaje-vacio p {
+    max-width: 550px;
+    margin: 0 auto;
+
     color: var(--gris);
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.8;
 }
 
+/* =========================================
+   SUBTÍTULOS DE SECCIÓN
+   ========================================= */
+
 .subtitulo-seccion {
-    margin: 27px 0 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e7e7e7;
+    margin: 28px 0 17px;
+    padding-bottom: 11px;
+    border-bottom: 1px solid var(--borde);
 }
 
 .subtitulo-seccion h4 {
     margin: 0 0 6px;
     color: var(--azul);
     font-size: 16px;
+    font-weight: 700;
 }
 
 .subtitulo-seccion p {
     margin: 0;
-    color: #666;
+    color: var(--gris);
     font-size: 12px;
-    line-height: 1.6;
+    line-height: 1.7;
 }
+
+/* =========================================
+   FORMULARIOS
+   ========================================= */
 
 .rejilla-formulario {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
+    gap: 20px;
 }
 
 .campo {
@@ -300,45 +460,86 @@ button {
 .campo label {
     color: var(--azul);
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 .campo input,
-.campo select {
+.campo select,
+.campo textarea {
     width: 100%;
-    min-height: 42px;
-    padding: 10px 12px;
-    border: 1px solid #d8d8d8;
+    min-height: 43px;
+    padding: 11px 13px;
+
+    border: 1px solid #d5dce5;
     border-radius: 8px;
-    background: white;
-    color: #222;
+
+    background: var(--blanco);
+    color: var(--texto);
+
     font-size: 13px;
     outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.campo textarea {
+    min-height: 90px;
+    resize: vertical;
 }
 
 .campo input:focus,
-.campo select:focus {
+.campo select:focus,
+.campo textarea:focus {
     border-color: var(--azul-hover);
-    box-shadow: 0 0 0 3px rgba(36, 85, 139, .12);
+    box-shadow: 0 0 0 3px rgba(36, 85, 139, 0.12);
 }
+
+.campo input::placeholder,
+.campo textarea::placeholder {
+    color: #929baa;
+}
+
+.campo input:disabled,
+.campo select:disabled,
+.campo textarea:disabled {
+    background: #f0f3f7;
+    color: #687587;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   NOTAS INFORMATIVAS
+   ========================================= */
 
 .nota {
     margin: 18px 0;
-    padding: 14px 17px;
-    border-left: 4px solid var(--azul);
+    padding: 15px 18px;
+
+    border-left: 4px solid var(--dorado);
     border-radius: 7px;
+
     background: #f5f7fa;
-    color: #555;
+    color: #526174;
+
     font-size: 12px;
-    line-height: 1.7;
+    line-height: 1.8;
 }
+
+/* =========================================
+   TABLAS
+   ========================================= */
 
 .tabla-contenedor {
     width: 100%;
     overflow-x: auto;
+
     border: 1px solid var(--borde);
     border-radius: 9px;
-    background: white;
+
+    background: var(--blanco);
+    -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -357,16 +558,20 @@ table {
 
 th,
 td {
-    padding: 11px 10px;
+    padding: 12px 10px;
     text-align: center;
     white-space: nowrap;
     border-bottom: 1px solid #e7eaf0;
 }
 
 th {
-    color: white;
+    color: var(--blanco);
     background: var(--azul);
-    font-weight: bold;
+    font-weight: 600;
+}
+
+thead th {
+    position: relative;
 }
 
 tbody tr:nth-child(even) {
@@ -377,64 +582,102 @@ tbody tr:hover {
     background: #edf3fa;
 }
 
-#tablaObservaciones input {
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* CAMPOS DENTRO DE LA TABLA */
+
+#tablaObservaciones input,
+#tablaObservaciones select {
     width: 78px;
-    min-height: 35px;
+    min-height: 36px;
     padding: 7px;
-    border: 1px solid #d5dbe4;
-    border-radius: 5px;
+
+    border: 1px solid #d5dce5;
+    border-radius: 6px;
+
+    background: var(--blanco);
+    color: var(--texto);
+
     text-align: center;
+    font-size: 12px;
+    outline: none;
 }
 
 #tablaObservaciones input.distancia {
     width: 100px;
 }
 
-#tablaObservaciones input:focus {
-    outline: 2px solid #c9d8ed;
+#tablaObservaciones input:focus,
+#tablaObservaciones select:focus {
     border-color: var(--azul-hover);
+    box-shadow: 0 0 0 2px rgba(36, 85, 139, 0.12);
 }
+
+/* =========================================
+   ACCIONES DEL FORMULARIO
+   ========================================= */
 
 .acciones-formulario {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 10px;
     margin-top: 25px;
 }
 
+/* =========================================
+   RESUMEN DE CÁLCULOS
+   ========================================= */
+
 .resumen-calculo {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 14px;
+    gap: 15px;
     margin: 20px 0;
 }
 
 .tarjeta-resumen {
-    padding: 16px;
+    min-width: 0;
+    padding: 18px;
+
     border: 1px solid var(--borde);
+    border-top: 3px solid var(--dorado);
     border-radius: 9px;
+
     background: #f9fbfd;
     overflow-wrap: anywhere;
 }
 
 .tarjeta-resumen span {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 9px;
+
     color: var(--gris);
     font-size: 12px;
+    line-height: 1.5;
 }
 
 .tarjeta-resumen strong {
     color: var(--azul);
     font-size: 17px;
+    overflow-wrap: anywhere;
 }
+
+/* =========================================
+   MENSAJES DE VALIDACIÓN
+   ========================================= */
 
 .mensaje {
     margin-top: 20px;
-    padding: 13px 15px;
-    border-radius: 7px;
+    padding: 14px 16px;
+
+    border-radius: 8px;
+
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
 }
 
 .mensaje.error {
@@ -449,11 +692,19 @@ tbody tr:hover {
     border: 1px solid #bde5c9;
 }
 
+/* =========================================
+   PIE DE PÁGINA
+   ========================================= */
+
 .pie-pagina {
-    padding: 25px 15px;
-    border-top: 1px solid #e5e5e5;
-    background: white;
-    color: #777;
+    width: 100%;
+    margin-top: auto;
+    padding: 23px 15px;
+
+    border-top: 1px solid var(--borde);
+    background: var(--blanco);
+
+    color: var(--gris);
     text-align: center;
     font-size: 12px;
 }
@@ -462,15 +713,28 @@ tbody tr:hover {
     margin: 0;
 }
 
+/* =========================================
+   UTILIDADES
+   ========================================= */
+
 .oculto {
     display: none !important;
 }
 
 .vacio {
+    padding: 22px;
     text-align: center;
-    color: #777;
-    padding: 20px;
+    color: var(--gris);
 }
+
+:focus-visible {
+    outline: 3px solid var(--dorado);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   TABLET
+   ========================================= */
 
 @media (max-width: 1050px) {
     .rejilla-formulario {
@@ -486,15 +750,33 @@ tbody tr:hover {
     }
 }
 
+/* =========================================
+   MÓVILES
+   ========================================= */
+
 @media (max-width: 700px) {
     .encabezado {
-        padding: 12px;
+        padding: 12px 16px;
         flex-wrap: wrap;
+        gap: 12px;
     }
 
     .logo {
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .marca h1 {
+        font-size: 17px;
+    }
+
+    .acciones-header {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .acciones-header > * {
+        flex: 1 1 auto;
     }
 
     .contenedor {
@@ -505,10 +787,15 @@ tbody tr:hover {
     .cabecera-pagina {
         align-items: flex-start;
         flex-direction: column;
+        gap: 15px;
     }
 
     .cabecera-pagina h2 {
         font-size: 25px;
+    }
+
+    .cabecera-pagina p {
+        font-size: 13px;
     }
 
     .panel {
@@ -519,23 +806,58 @@ tbody tr:hover {
     .titulo-panel {
         align-items: flex-start;
         flex-direction: column;
+        gap: 10px;
+    }
+
+    .titulo-panel h3 {
+        font-size: 19px;
     }
 
     .rejilla-formulario,
     .resumen-calculo,
     .lista-proyectos {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
     }
 
     .campo-completo {
         grid-column: auto;
     }
 
-    .acciones-header {
-        flex-wrap: wrap;
-    }
-
     .acciones-resultados {
         width: 100%;
+    }
+
+    .acciones-formulario > button,
+    .acciones-formulario > a,
+    .acciones-resultados > button,
+    .acciones-resultados > a {
+        flex: 1 1 auto;
+    }
+
+    .tabla-contenedor {
+        border-radius: 7px;
+    }
+
+    th,
+    td {
+        padding: 10px 8px;
+    }
+
+    .tarjeta-resumen strong {
+        font-size: 16px;
+    }
+}
+
+/* =========================================
+   MOVIMIENTO REDUCIDO
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
     }
 }

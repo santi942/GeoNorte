@@ -1,84 +1,321 @@
+/* ==============================
+   GEONORTE - INICIO DE SESIÓN
+   ============================== */
 
-*{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; transition: all 0.3s linear;}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-body{
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root {
+    --azul: #17365d;
+    --azul-hover: #24558b;
+    --dorado: #e4b45c;
+    --blanco: #ffffff;
+    --borde: rgba(255, 255, 255, 0.55);
+}
+
+/* Fondo temático */
+
+body {
     min-height: 100vh;
-    background-image: url('../IMG/FONDO.png');
+    min-height: 100dvh;
+    background-image:
+        linear-gradient(
+            110deg,
+            rgba(5, 21, 39, 0.35),
+            rgba(5, 21, 39, 0.05) 55%,
+            rgba(5, 21, 39, 0.25)
+        ),
+        url('../IMG/FONDO.png');
+
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding: 30px 20px;
+    color: var(--blanco);
+    position: relative;
+    overflow-x: hidden;
 }
 
-.container{
-   border: 2px solid rgba(255, 255, 255, 0.5);
-   width: 90%;
-   max-width: 450px;
-   padding: 30px 40px;
-   border-radius: 10px;
-   color: #fff;
-   backdrop-filter: blur(20px);
-   box-shadow: 0 0 30px rgba(8, 7, 16, 0.6);
+/* Capa de contraste */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(8, 27, 47, 0.30),
+        transparent 45%,
+        rgba(8, 27, 47, 0.12)
+    );
+    pointer-events: none;
+    z-index: 0;
 }
 
-.container h1{
+/* Contenedor principal */
+
+.container {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    max-width: 450px;
+
+    padding: 30px 38px;
+    border: 1.5px solid var(--borde);
+    border-radius: 13px;
+
+    background: rgba(30, 43, 54, 0.42);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    animation: aparecer 0.8s ease both;
+}
+
+/* Título */
+
+.container h1 {
     text-align: center;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
+    font-size: clamp(25px, 4vw, 30px);
+    font-weight: 700;
+    color: var(--blanco);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-form{
+/* Formulario */
+
+form {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 22px;
 }
 
-.input-box{
-    border: 2px solid rgba(255, 255, 255, 0.5);
+/* Campos */
+
+.input-box {
+    width: 100%;
+    min-height: 56px;
+
     display: flex;
     align-items: center;
-    height: 60px;
+
+    padding: 0 19px;
+    border: 2px solid rgba(255, 255, 255, 0.58);
     border-radius: 40px;
-    padding: 20px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
-.input-box input{
-    flex: 1;
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    font-size: 16px;
-    color: #fff;
+.input-box:focus-within {
+    border-color: var(--dorado);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(228, 180, 92, 0.13);
+}
+
+.input-box input {
+    width: 100%;
     min-width: 0;
+    height: 100%;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    font-size: 14px;
+    color: var(--blanco);
 }
 
-.remember-password{
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.62);
+}
+
+/* Evita que el navegador cambie el campo
+   de contraseña o correo a un fondo blanco */
+
+.input-box input:-webkit-autofill,
+.input-box input:-webkit-autofill:hover,
+.input-box input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Recordarme y recuperar contraseña */
+
+.remember-password {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 15px;
-    font-size: 14.5px;
+    gap: 10px;
+
+    font-size: 12.5px;
 }
 
-.remember-password label{
-    display: flex;
+.remember-password label {
+    display: inline-flex;
     align-items: center;
+    gap: 6px;
+    cursor: pointer;
 }
 
-.remember-password input{
-    margin-right: 5px;
+.remember-password input[type="checkbox"] {
+    accent-color: var(--dorado);
+    cursor: pointer;
 }
 
-form a:hover{
+form a {
+    color: #bcd8ff;
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+form a:hover {
+    color: var(--dorado);
     text-decoration: underline;
 }
 
-.btn{
+/* Botón ingresar */
+
+.btn {
+    width: 100%;
+    min-height: 43px;
+
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: 30px;
-    border: 0;
-    outline: 0;
-    font-size: 15px;
-    font-weight: 500;
-    padding: 10px;
+
+    background: var(--blanco);
+    color: #182432;
+
+    font-size: 14px;
+    font-weight: 600;
+
     cursor: pointer;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.btn:hover {
+    background: var(--dorado);
+    color: #17283b;
+    border-color: var(--dorado);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Texto de registro */
+
+form p {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--blanco);
+}
+
+#enlaceRegistro {
+    color: var(--dorado);
+    font-weight: 600;
+}
+
+/* Mensajes de Supabase */
+
+#mensajeLogin {
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+/* Animación inicial */
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Adaptación para celulares */
+
+@media (max-width: 600px) {
+    body {
+        background-attachment: scroll;
+        background-position: 43% center;
+        padding: 20px 14px;
+    }
+
+    .container {
+        max-width: 410px;
+        padding: 27px 23px;
+        background: rgba(19, 34, 48, 0.72);
+    }
+
+    .container h1 {
+        margin-bottom: 25px;
+    }
+
+    form {
+        gap: 19px;
+    }
+
+    .input-box {
+        min-height: 52px;
+        padding: 0 16px;
+    }
+
+    .remember-password {
+        font-size: 12px;
+    }
+}
+
+/* Reduce animaciones si el usuario lo prefiere */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
