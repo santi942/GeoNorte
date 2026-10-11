@@ -4,11 +4,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=LOGIN.html">
-    <title>TopoCalc</title>
+    <title>GeoNorte | Bienvenido</title>
+    <link rel="icon" type="image/x-icon" href="../IMG/ICONO.ico">
+    <link rel="stylesheet" href="../CSS/INDEX.css">
 </head>
+
 <body>
-    <p>Ingresando a TopoCalc...</p>
-    <a href="LOGIN.html">Haz clic aquí si no te redirige.</a>
+
+    <main class="pantalla">
+        <section class="contenido">
+
+            <h1 class="logo">Geo<span>Norte</span></h1>
+
+            <p class="subtitulo">
+                Sistema de cálculos topográficos
+                <br>
+                Precisión, tecnología y confianza en cada coordenada.
+            </p>
+
+            <div class="carga" id="carga">
+                <div class="barra-fondo">
+                    <div class="barra" id="barra"></div>
+                </div>
+
+                <p class="mensaje" id="mensaje">
+                    Preparando tu espacio de trabajo... 0%
+                </p>
+            </div>
+
+            <a href="LOGIN.html" class="boton" id="boton">
+                Iniciar sesión
+            </a>
+
+            <p class="pie">
+                GeoNorte © 2026 | Herramientas para topografía
+            </p>
+
+        </section>
+    </main>
+
+    <script>
+        const DURACION = 30000;
+        const inicio = Date.now();
+
+        const barra = document.getElementById("barra");
+        const mensaje = document.getElementById("mensaje");
+        const carga = document.getElementById("carga");
+        const boton = document.getElementById("boton");
+
+        const temporizador = setInterval(() => {
+            const transcurrido = Date.now() - inicio;
+            const progreso = Math.min(
+                (transcurrido / DURACION) * 100,
+                100
+            );
+
+            barra.style.width = progreso + "%";
+            mensaje.textContent =
+                "Preparando tu espacio de trabajo... " +
+                Math.floor(progreso) + "%";
+
+            if (transcurrido >= DURACION) {
+                clearInterval(temporizador);
+
+                carga.style.display = "none";
+                boton.style.display = "inline-block";
+                boton.style.animation = "aparecer 0.8s ease";
+            }
+        }, 100);
+    </script>
+
 </body>
 </html>
